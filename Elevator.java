@@ -1,45 +1,26 @@
-
-import java.time.*;
-import java.util.Arrays;
-
+/**
+ *
+ * @author Tinsae, shady, hussain, loulia, shan 
+ *
+ */
 public class Elevator implements Runnable {
-
-	
-	private LocalTime time;
-	
-	private int[] floors;
-	
-	private int Elevnum;
-	
-	private boolean[] buttons;
-	
-	public Elevator() {
-		
+	Scheduler seq;
+	/**
+	 * constructor 
+	 */
+	public Elevator(Scheduler seq) {
+		this.seq = seq;
 	}
-	public Elevator(int Elevnum,int floor) {
-		
-		
-		this.Elevnum = Elevnum;
-		
-		this.floors =  new int[floor];
-		
-		this.buttons = new boolean[floor];
-		
-		Arrays.fill(this.buttons, false);
-	
-		
-	}
-
 
 	@Override
 	public void run() {
-		System.out.println("`i am ");
-		
+		while(true) {
+			FloorRequested reqInfo = seq.getElev();
+			System.out.println(Thread.currentThread().getName() + ": Passenger Arrives at " + reqInfo.getTime() + " and requested on floor "+
+			reqInfo.getFloorNum()+ " to go " + reqInfo.getDirection().toString());
+			System.out.println(Thread.currentThread().getName()+": The passenger Goes to Floor: " + reqInfo.getDestinationFloor());
+		}
 		
 	}
-	
-	
-	
-	
 	
 }
